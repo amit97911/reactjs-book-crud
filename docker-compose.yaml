@@ -12,7 +12,7 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
             - 'mysql-docker:/var/lib/mysql'
-            - './docker/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - './mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - mysql-docker
         healthcheck:
@@ -23,6 +23,26 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+
+    expressjs:
+        image: "node:20.11.1"
+        user: "node"
+        working_dir: /home/node/app
+        environment:
+            - NODE_ENV=development
+            # - NODE_ENV=production
+        volumes:
+            - ./backend:/home/node/app
+        expose:
+            - "3000"
+        ports: # use if it is necessary to expose the container to the host machine
+            - "3001:3000"
+        networks:
+            - mysql-docker
+        command: "npm run start"
+        # command: "tail -f /dev/null"
+        # command: "npx create-next-app@latest next-crud --eslint --tailwind --app --ts --use-npm --force --no-install"
+
 networks:
     mysql-docker:
         driver: bridge
