@@ -1,0 +1,60 @@
+-- For Educational purpose only. DB SQL should not be made pulic on git.
+-- Lists all database
+show databases;
+
+-- Create database named 'reactjs'
+create database reactjs;
+
+-- Use newly created database named 'reactjs'
+use reactjs;
+
+-- create table named 'books' if it does not exist
+create table
+    if not exists books (
+        id int primary key not null auto_increment,
+        title varchar(55) not null,
+        description varchar(222) not null,
+        cover varchar(55) not null
+    );
+
+-- View structure of table 'books' 
+desc books;
+
+-- list all rows in table 'books'
+select
+    *
+from
+    books;
+
+-- Insert items in table 'books'
+INSERT INTO
+    `books` (`title`, `description`, `cover`)
+VALUES
+    (
+        'first book',
+        'first book description',
+        'first_cover.png'
+    ),
+    (
+        'second book',
+        'second book description',
+        'second_cover.png'
+    ),
+    (
+        'third book',
+        'third book description',
+        'third_cover.png'
+    ),
+    (
+        'fourth book',
+        'fourth book description',
+        'fourth_cover.png'
+    ),
+    (
+        'fifth book',
+        'fifth book description',
+        'fifth_cover.png'
+    );
+    
+
+

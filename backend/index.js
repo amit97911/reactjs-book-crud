@@ -1,10 +1,10 @@
-import express from 'express'
-import mysql from 'mysql'
-import dotenv from 'dotenv'
+import express from 'express';
+import mysql from 'mysql';
+import dotenv from 'dotenv';
 
-dotenv.config({ path: './.env' })
+dotenv.config({ path: './.env' });
 
-const app = express()
+const app = express();
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 const connectionCreds = {
     host: process.env.DB_HOST,
@@ -21,20 +21,20 @@ const connectionCreds = {
     }
 };
 
-const db = mysql.createConnection(connectionCreds)
+const db = mysql.createConnection(connectionCreds);
 
 app.get('/', (req, res) => {
     return res.json("Hello this is backend!");
 });
 
 app.get('/books', (req, res) => {
-    const q = "SELECT 1+1+1 as total";
+    const q = "SELECT * from books";
     db.query(q, (err, data) => {
         if (err) return res.json(err)
-        return res.json(data[0].total)
-    })
+        return res.json(data)
+    });
 });
 
 app.listen(SERVER_PORT, () => {
-    console.log("Connected to express!")
-})
+    console.log("Connected to express!");
+});
