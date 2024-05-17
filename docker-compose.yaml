@@ -1,5 +1,6 @@
 services:
     mysql:
+        container_name: 'book_management_mysql'
         image: 'mysql/mysql-server:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
@@ -14,7 +15,7 @@ services:
             - 'mysql-docker:/var/lib/mysql'
             - './mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
-            - mysql-docker
+            - 'mysql-docker'
         healthcheck:
             test:
                 - CMD
@@ -25,7 +26,8 @@ services:
             timeout: 5s
 
     expressjs:
-        image: "node:20.11.1"
+        container_name: 'book_management_express'
+        image: "node:22.2.0"
         user: "node"
         working_dir: /home/node/app
         environment:
@@ -38,9 +40,11 @@ services:
         ports: # use if it is necessary to expose the container to the host machine
             - "3001:3000"
         networks:
-            - mysql-docker
-        command: "npm run start"
+            - 'mysql-docker'
+        depends_on:
+            - mysql
         # command: "tail -f /dev/null"
+        command: "npm run start"
         # command: "npx create-next-app@latest next-crud --eslint --tailwind --app --ts --use-npm --force --no-install"
 
 networks:

@@ -8,7 +8,7 @@ const app = express()
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 const connectionCreds = {
     host: process.env.DB_HOST,
-    username: process.env.DB_USERNAME,
+    user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     port: process.env.FORWARD_DB_PORT,
     database: process.env.DB_DATABASE,
@@ -20,6 +20,7 @@ const connectionCreds = {
         idle: 10000
     }
 };
+
 const db = mysql.createConnection(connectionCreds)
 
 app.get('/', (req, res) => {
@@ -27,10 +28,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/books', (req, res) => {
-    const q = "SELECT * from books";
+    const q = "SELECT 1+1+1 as total";
     db.query(q, (err, data) => {
         if (err) return res.json(err)
-        return res.json(data)
+        return res.json(data[0].total)
     })
 });
 
