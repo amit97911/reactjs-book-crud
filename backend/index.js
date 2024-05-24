@@ -5,7 +5,9 @@ import dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
 
 const app = express();
-const SERVER_PORT = process.env.SERVER_PORT || 3000;
+app.use(express.json());
+
+const SERVER_PORT = 3000;
 const connectionCreds = {
     host: process.env.DB_HOST,
     user: process.env.DB_USERNAME,
@@ -28,10 +30,20 @@ app.get('/', (req, res) => {
 });
 
 app.get('/books', (req, res) => {
-    const q = "SELECT * from books";
+    const q = "SELECT * from `books`";
     db.query(q, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
+    });
+});
+
+app.post('/books', (req, res) => {
+    const q = "INSERT into `books` (`title`, `description`, `cover`) values (?)";
+    const values = ['post_title', 'post_description', 'post_cover.png'];
+
+    db.query(q, [values], (err, data) => {
+        if (err) return res.json(err)
+        return res.json("Book created")
     });
 });
 

@@ -47,6 +47,30 @@ services:
         command: "npm run start"
         # command: "npx create-next-app@latest next-crud --eslint --tailwind --app --ts --use-npm --force --no-install"
 
+
+    reactjs:
+        container_name: 'book_management_react'
+        image: "node:22.2.0"
+        user: "node"
+        working_dir: /home/node/app
+        environment:
+            - NODE_ENV=development
+            # - NODE_ENV=production
+        volumes:
+            - ./frontend:/home/node/app
+        expose:
+            - "3000"
+        ports: # use if it is necessary to expose the container to the host machine
+            - "3002:3000"
+        networks:
+            - 'mysql-docker'
+        depends_on:
+            - mysql
+            - expressjs
+        # command: "tail -f /dev/null"
+        command: "npm run start"
+        # command: "npx create-next-app@latest next-crud --eslint --tailwind --app --ts --use-npm --force --no-install"
+
 networks:
     mysql-docker:
         driver: bridge
