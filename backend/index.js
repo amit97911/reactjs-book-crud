@@ -1,11 +1,13 @@
 import express from 'express';
 import mysql from 'mysql';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config({ path: './.env' });
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const SERVER_PORT = 3000;
 const connectionCreds = {

@@ -43,8 +43,8 @@ services:
             - 'mysql-docker'
         depends_on:
             - mysql
-        # command: "tail -f /dev/null"
-        command: "npm run start"
+        command: "tail -f /dev/null"
+        # command: "npm run start"
         # command: "npx create-next-app@latest next-crud --eslint --tailwind --app --ts --use-npm --force --no-install"
 
 
@@ -67,8 +67,8 @@ services:
         depends_on:
             - mysql
             - expressjs
-        # command: "tail -f /dev/null"
-        command: "npm run start"
+        command: "tail -f /dev/null"
+        # command: "npm run start"
         # command: "npx create-next-app@latest next-crud --eslint --tailwind --app --ts --use-npm --force --no-install"
 
 networks:
