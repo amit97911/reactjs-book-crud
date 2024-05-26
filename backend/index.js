@@ -56,6 +56,16 @@ app.post('/books', (req, res) => {
     });
 });
 
+app.delete('/book/:id',(req,res) => {
+    const bookId = req.params.id;
+    const q = "DELETE from books where id = ?";
+    db.query(q, [bookId], (err, data) => {
+        if (err) return res.json(err)
+        return res.json("Book deleted")
+    });
+
+});
+
 app.listen(SERVER_PORT, () => {
     console.log("Connected to express!");
 });
