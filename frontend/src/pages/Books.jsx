@@ -16,7 +16,7 @@ const Books = () => {
         fetchAllBooks();
     }, [])
     return (
-        <>
+        <div>
             <h1>List of all books!</h1>
             <div className="books">
                 {
@@ -26,12 +26,14 @@ const Books = () => {
                             <h2>{book.title}</h2>
                             <p>{book.description}</p>
                             <span>{book.price}</span>
+                        <button className="delete">Delete</button>
+                        <button className="update">Update</button>
                         </div>
                     ))
                 }
             </div>
             <button><Link to="/add">Add New Book</Link></button>
-        </>
+        </div>
     )
 }
 
