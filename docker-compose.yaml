@@ -59,9 +59,9 @@ services:
         volumes:
             - ./frontend:/home/node/app
         expose:
-            - "3000"
+            - "3002"
         ports: # use if it is necessary to expose the container to the host machine
-            - "3002:3000"
+            - "3002:3002"
         networks:
             - 'mysql-docker'
         depends_on:

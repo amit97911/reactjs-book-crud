@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/books', (req, res) => {
-    const q = "SELECT * from `books`";
+    const q = "SELECT * from `books` order by id desc";
     db.query(q, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
@@ -40,8 +40,15 @@ app.get('/books', (req, res) => {
 });
 
 app.post('/books', (req, res) => {
-    const q = "INSERT into `books` (`title`, `description`, `cover`) values (?)";
-    const values = ['post_title', 'post_description', 'post_cover.png'];
+    const q = "INSERT into `books` (`title`, `description`,`price`, `cover`) values (?)";
+
+    const values = [
+        req.body.title,
+        req.body.description,
+        req.body.price,
+        req.body.cover,
+    ];
+    // const values = ['post_title1', 'post_description1', 100.00, 'post_cover1.png'];
 
     db.query(q, [values], (err, data) => {
         if (err) return res.json(err)
